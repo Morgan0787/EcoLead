@@ -64,7 +64,7 @@ function Inner({ userId }: { userId: string }) {
     });
 
     if (!parsed.success) {
-      return setError(parsed.error.errors[0]?.message ?? "Invalid input");
+      return setError(parsed.error.issues[0]?.message ?? "Invalid input");
     }
 
     setLoading(true);

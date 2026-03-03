@@ -67,7 +67,7 @@ export function LogsView({
     setError(null);
     const parsed = schema.safeParse({ plan_id: planId, date, notes, status });
     if (!parsed.success) {
-      return setError(parsed.error.errors[0]?.message ?? "Invalid input");
+      return setError(parsed.error.issues[0]?.message ?? "Invalid input");
     }
     setLoading(true);
     try {
