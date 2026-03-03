@@ -1,0 +1,103 @@
+{
+  "appName": "EcoLead",
+  "tagline": "Планируйте, фиксируйте и подтверждайте локальный эко‑вклад.",
+  "auth": {
+    "email": "Эл. почта",
+    "password": "Пароль",
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "signOut": "Выйти",
+    "createAccount": "Создать аккаунт",
+    "forgotPassword": "Забыли пароль?",
+    "resetPassword": "Сброс пароля",
+    "sendResetLink": "Отправить ссылку",
+    "checkEmail": "Проверьте почту — мы отправили ссылку для сброса.",
+    "haveAccount": "Уже есть аккаунт?",
+    "noAccount": "Нет аккаунта?"
+  },
+  "onboarding": {
+    "title": "Настройка",
+    "subtitle": "Пара деталей, чтобы мы могли подстроить опыт под вас.",
+    "role": "Роль",
+    "roleStudent": "Студент",
+    "roleEcoClub": "Эко‑клуб / Волонтёрство",
+    "roleGovernment": "Гос. организация",
+    "groupSize": "Размер группы",
+    "awareness": "Уровень осведомлённости",
+    "awarenessLow": "Низкий",
+    "awarenessMedium": "Средний",
+    "awarenessHigh": "Высокий",
+    "language": "Язык",
+    "langUz": "Узбекский",
+    "langRu": "Русский",
+    "langEn": "Английский",
+    "zipcode": "Почтовый индекс региона",
+    "continue": "Продолжить"
+  },
+  "nav": {
+    "dashboard": "Дашборд",
+    "impactLab": "ImpactLab",
+    "logs": "Логи",
+    "verifyImpact": "Подтверждение",
+    "achievements": "Достижения",
+    "settings": "Настройки"
+  },
+  "dashboard": {
+    "welcome": "С возвращением",
+    "quickActions": "Быстрые действия",
+    "makePlan": "Создать эко‑план",
+    "addLog": "Добавить лог",
+    "uploadPhotos": "Загрузить до/после"
+  },
+  "impactLab": {
+    "title": "ImpactLab",
+    "makePlan": "Создать эко‑план",
+    "planTitle": "Название",
+    "goalDescription": "Описание цели",
+    "areaSize": "Площадь (м²)",
+    "season": "Сезон",
+    "zipcode": "Индекс",
+    "reminderDate": "Дата напоминания (опционально)",
+    "generate": "Сгенерировать план",
+    "generatedPlan": "Сгенерированный план"
+  },
+  "logs": {
+    "title": "Логи",
+    "selectPlan": "Выберите план",
+    "addLog": "Добавить запись",
+    "date": "Дата",
+    "notes": "Заметки",
+    "status": "Статус",
+    "todo": "Сделать",
+    "inProgress": "В процессе",
+    "done": "Готово",
+    "save": "Сохранить"
+  },
+  "verify": {
+    "title": "Подтверждение влияния",
+    "selectPlan": "Выберите план",
+    "before": "Фото «до»",
+    "after": "Фото «после»",
+    "upload": "Загрузить",
+    "uploaded": "Загружено"
+  },
+  "achievements": {
+    "title": "Достижения",
+    "tokens": "Токены",
+    "firstPlan": "Первый план создан",
+    "firstLog": "Первый лог добавлен",
+    "photos": "Фото до/после загружены"
+  },
+  "settings": {
+    "title": "Настройки",
+    "language": "Язык",
+    "save": "Сохранить"
+  },
+  "common": {
+    "loading": "Загрузка…",
+    "error": "Что‑то пошло не так.",
+    "required": "Обязательно",
+    "back": "Назад"
+  }
+}
+

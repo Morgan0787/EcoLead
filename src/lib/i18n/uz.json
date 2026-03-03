@@ -1,0 +1,103 @@
+{
+  "appName": "EcoLead",
+  "tagline": "Mahalliy eko ta’siringizni rejalang, qayd eting va tasdiqlang.",
+  "auth": {
+    "email": "Email",
+    "password": "Parol",
+    "signIn": "Kirish",
+    "signUp": "Ro‘yxatdan o‘tish",
+    "signOut": "Chiqish",
+    "createAccount": "Hisob yaratish",
+    "forgotPassword": "Parolni unutdingizmi?",
+    "resetPassword": "Parolni tiklash",
+    "sendResetLink": "Tiklash havolasini yuborish",
+    "checkEmail": "Emailingizni tekshiring — tiklash havolasi yuborildi.",
+    "haveAccount": "Hisobingiz bormi?",
+    "noAccount": "Hisobingiz yo‘qmi?"
+  },
+  "onboarding": {
+    "title": "Moslashtirish",
+    "subtitle": "Tajriba sizga mos bo‘lishi uchun bir nechta savol.",
+    "role": "Rol",
+    "roleStudent": "Talaba",
+    "roleEcoClub": "Eko-klub / Ko‘ngillilik",
+    "roleGovernment": "Davlat tashkiloti",
+    "groupSize": "Guruh hajmi",
+    "awareness": "Xabardorlik darajasi",
+    "awarenessLow": "Past",
+    "awarenessMedium": "O‘rtacha",
+    "awarenessHigh": "Yuqori",
+    "language": "Til",
+    "langUz": "O‘zbek",
+    "langRu": "Rus",
+    "langEn": "Ingliz",
+    "zipcode": "Hudud indeksi",
+    "continue": "Davom etish"
+  },
+  "nav": {
+    "dashboard": "Bosh sahifa",
+    "impactLab": "ImpactLab",
+    "logs": "Qaydlar",
+    "verifyImpact": "Tasdiqlash",
+    "achievements": "Yutuqlar",
+    "settings": "Sozlamalar"
+  },
+  "dashboard": {
+    "welcome": "Xush kelibsiz",
+    "quickActions": "Tezkor amallar",
+    "makePlan": "Eko-reja tuzish",
+    "addLog": "Qayd qo‘shish",
+    "uploadPhotos": "Oldin/keyin yuklash"
+  },
+  "impactLab": {
+    "title": "ImpactLab",
+    "makePlan": "Eko-reja tuzish",
+    "planTitle": "Sarlavha",
+    "goalDescription": "Maqsad tavsifi",
+    "areaSize": "Maydon (m²)",
+    "season": "Fasl",
+    "zipcode": "Indeks",
+    "reminderDate": "Eslatma sanasi (ixtiyoriy)",
+    "generate": "Rejani yaratish",
+    "generatedPlan": "Yaratilgan reja"
+  },
+  "logs": {
+    "title": "Qaydlar",
+    "selectPlan": "Rejani tanlang",
+    "addLog": "Qayd qo‘shish",
+    "date": "Sana",
+    "notes": "Izohlar",
+    "status": "Holat",
+    "todo": "Bajarilmagan",
+    "inProgress": "Jarayonda",
+    "done": "Bajarildi",
+    "save": "Saqlash"
+  },
+  "verify": {
+    "title": "Ta’sirni tasdiqlash",
+    "selectPlan": "Rejani tanlang",
+    "before": "Oldin rasmi",
+    "after": "Keyin rasmi",
+    "upload": "Yuklash",
+    "uploaded": "Yuklandi"
+  },
+  "achievements": {
+    "title": "Yutuqlar",
+    "tokens": "Tokenlar",
+    "firstPlan": "Birinchi reja yaratildi",
+    "firstLog": "Birinchi qayd qo‘shildi",
+    "photos": "Oldin/keyin rasmlar yuklandi"
+  },
+  "settings": {
+    "title": "Sozlamalar",
+    "language": "Til",
+    "save": "Saqlash"
+  },
+  "common": {
+    "loading": "Yuklanmoqda…",
+    "error": "Xatolik yuz berdi.",
+    "required": "Majburiy",
+    "back": "Orqaga"
+  }
+}
+

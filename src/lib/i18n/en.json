@@ -1,0 +1,103 @@
+{
+  "appName": "EcoLead",
+  "tagline": "Plan, track, and verify your local eco impact.",
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "signOut": "Sign out",
+    "createAccount": "Create account",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset password",
+    "sendResetLink": "Send reset link",
+    "checkEmail": "Check your email for a reset link.",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Don’t have an account?"
+  },
+  "onboarding": {
+    "title": "Customization",
+    "subtitle": "A few details so we can tailor your experience.",
+    "role": "Role",
+    "roleStudent": "Student",
+    "roleEcoClub": "Eco-club / Volunteering",
+    "roleGovernment": "Government organization",
+    "groupSize": "Group size",
+    "awareness": "Awareness level",
+    "awarenessLow": "Low",
+    "awarenessMedium": "Medium",
+    "awarenessHigh": "High",
+    "language": "Language",
+    "langUz": "Uzbek",
+    "langRu": "Russian",
+    "langEn": "English",
+    "zipcode": "Region zipcode",
+    "continue": "Continue"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "impactLab": "ImpactLab",
+    "logs": "Logs",
+    "verifyImpact": "Verify Impact",
+    "achievements": "Achievements",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "quickActions": "Quick actions",
+    "makePlan": "Make an eco plan",
+    "addLog": "Add a log",
+    "uploadPhotos": "Upload before/after"
+  },
+  "impactLab": {
+    "title": "ImpactLab",
+    "makePlan": "Make an eco plan",
+    "planTitle": "Title",
+    "goalDescription": "Goal description",
+    "areaSize": "Area size (m²)",
+    "season": "Season",
+    "zipcode": "Zipcode",
+    "reminderDate": "Reminder date (optional)",
+    "generate": "Generate plan",
+    "generatedPlan": "Generated plan"
+  },
+  "logs": {
+    "title": "Logs",
+    "selectPlan": "Select a plan",
+    "addLog": "Add log entry",
+    "date": "Date",
+    "notes": "Notes",
+    "status": "Status",
+    "todo": "To do",
+    "inProgress": "In progress",
+    "done": "Done",
+    "save": "Save"
+  },
+  "verify": {
+    "title": "Verify Impact",
+    "selectPlan": "Select a plan",
+    "before": "Before image",
+    "after": "After image",
+    "upload": "Upload",
+    "uploaded": "Uploaded"
+  },
+  "achievements": {
+    "title": "Achievements",
+    "tokens": "Tokens",
+    "firstPlan": "First Plan Created",
+    "firstLog": "First Log Added",
+    "photos": "Before/After Uploaded"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "save": "Save"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong.",
+    "required": "Required",
+    "back": "Back"
+  }
+}
+
