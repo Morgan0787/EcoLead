@@ -31,20 +31,17 @@ export async function POST(req: Request) {
       );
     }
 
-    const groqKey = process.env.GROQ_API_KEY;
     const openaiKey = process.env.OPENAI_API_KEY;
-    const apiKey = groqKey ?? openaiKey;
 
-    if (!apiKey) {
+    if (!openaiKey) {
       return NextResponse.json(
-        { error: "Missing GROQ_API_KEY (or OPENAI_API_KEY) on server" },
+        { error: "Missing OPENAI_API_KEY" },
         { status: 500 },
       );
     }
 
     const client = new OpenAI({
-      apiKey,
-      baseURL: groqKey ? "https://api.groq.com/openai/v1" : undefined,
+      apiKey: openaiKey,
     });
 
     const prompt = {

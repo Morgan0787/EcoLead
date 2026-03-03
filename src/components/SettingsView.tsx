@@ -8,10 +8,10 @@ import { useI18n } from "@/components/I18nProvider";
 export function SettingsView({ initialLanguage }: { initialLanguage: string }) {
   const { t, setLanguage } = useI18n();
   const supabase = createSupabaseBrowserClient();
+  const isSupportedLanguage = (value: string): value is "en" | "ru" | "uz" =>
+    value === "en" || value === "ru" || value === "uz";
   const [lang, setLang] = useState<"en" | "ru" | "uz">(
-    (["en", "ru", "uz"] as const).includes(initialLanguage as any)
-      ? (initialLanguage as "en" | "ru" | "uz")
-      : "en",
+    isSupportedLanguage(initialLanguage) ? initialLanguage : "en",
   );
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -85,4 +85,3 @@ export function SettingsView({ initialLanguage }: { initialLanguage: string }) {
     </div>
   );
 }
-
