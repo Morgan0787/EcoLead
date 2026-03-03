@@ -72,7 +72,7 @@ export function ImpactLabForm({ initialZipcode }: { initialZipcode: string }) {
       reminder_date: reminderDate || undefined,
     });
     if (!parsed.success) {
-      return setError(parsed.error.errors[0]?.message ?? "Invalid input");
+      return setError(parsed.error.issues[0]?.message ?? "Invalid input");
     }
 
     setLoading(true);
