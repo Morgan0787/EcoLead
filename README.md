@@ -1,47 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EcoLead
+
+EcoLead is a Next.js 16 (App Router + TypeScript + Tailwind) app with Supabase auth and an AI-backed impact plan generator.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
 ## Environment configuration
 
-- Copy `.env.example` to `.env.local`.
-- Insert your real values for:
-  - `NEXT_PUBLIC_SUPABASE_URL`
-  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-  - `GROQ_API_KEY`
-  - `OPENAI_MODEL` (default `gpt-4o-mini` is fine for local)
-- Run `npm run dev`.
-- Visit `/env-check` to verify that variables are wired correctly without exposing secrets.
+1. Copy `.env.example` to `.env.local`.
+2. Set these values:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `OPENAI_API_KEY`
+   - `OPENAI_MODEL` (defaults to `gpt-4o-mini`)
+3. Visit `/env-check` to verify configuration without exposing sensitive values.
 
-## Learn More
+## Deploy to Vercel
 
-To learn more about Next.js, take a look at the following resources:
+### Required environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Set these in Vercel Project Settings → Environment Variables:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `OPENAI_API_KEY`
+- `OPENAI_MODEL` (optional override, default `gpt-4o-mini`)
 
-## Deploy on Vercel
+### Supabase Auth redirect URLs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+In Supabase Auth settings, configure:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Local development URL: `http://localhost:3000/**`
+- Vercel production URL: `https://<your-vercel-domain>/**`
+
+(If using preview deployments, add `https://*.vercel.app/**` as needed.)
+
+### Deployment steps
+
+1. Push this repo to GitHub.
+2. Import the repository in Vercel.
+3. Add the required environment variables.
+4. Deploy.
+
+## Build
+
+```bash
+npm run build
+```
