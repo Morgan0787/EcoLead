@@ -20,6 +20,30 @@ const planSchema = z.object({
   local_notes: z.string(),
 });
 
+function buildFallbackPlan(input: z.infer<typeof inputSchema>) {
+  return {
+    summary: `Starter eco plan for ${input.title}`,
+    steps: [
+      `Measure and map the ${input.area_size_m2} m² area, then split it into priority zones.`,
+      `Prepare the top soil and remove debris before ${input.season} implementation starts.`,
+      `Plant or install the first pilot section and monitor weekly progress.`,
+      `Expand to remaining zones using lessons from the pilot section.`,
+    ],
+    materials: [
+      "Work gloves",
+      "Hand tools (shovel/rake)",
+      "Watering equipment",
+      "Compost or organic soil improver",
+    ],
+    timeline_weeks: 6,
+    risks: [
+      "Inconsistent maintenance schedule",
+      "Over- or under-watering during early setup",
+    ],
+    local_notes: `This fallback plan is generated without external AI and tailored to zipcode ${input.zipcode} for ${input.season}.`,
+  };
+}
+
 export async function POST(req: Request) {
   try {
     const json = await req.json();
@@ -36,10 +60,7 @@ export async function POST(req: Request) {
     const apiKey = groqKey ?? openaiKey;
 
     if (!apiKey) {
-      return NextResponse.json(
-        { error: "Missing GROQ_API_KEY (or OPENAI_API_KEY) on server" },
-        { status: 500 },
-      );
+      return NextResponse.json({ plan: buildFallbackPlan(parsed.data) });
     }
 
     const client = new OpenAI({
@@ -116,4 +137,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
