@@ -31,14 +31,21 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!process.env.OPENAI_API_KEY) {
+    const groqKey = process.env.GROQ_API_KEY;
+    const openaiKey = process.env.OPENAI_API_KEY;
+    const apiKey = groqKey ?? openaiKey;
+
+    if (!apiKey) {
       return NextResponse.json(
-        { error: "Missing OPENAI_API_KEY on server" },
+        { error: "Missing GROQ_API_KEY (or OPENAI_API_KEY) on server" },
         { status: 500 },
       );
     }
 
-    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const client = new OpenAI({
+      apiKey,
+      baseURL: groqKey ? "https://api.groq.com/openai/v1" : undefined,
+    });
 
     const prompt = {
       role: "user" as const,
