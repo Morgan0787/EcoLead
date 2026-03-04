@@ -27,7 +27,7 @@ const inputSchema = z.object({
 
 export function ImpactLabForm({ initialZipcode }: { initialZipcode: string }) {
   const supabase = createSupabaseBrowserClient();
-  const { t } = useI18n();
+  const { t, language } = useI18n();
 
   const [title, setTitle] = useState("");
   const [goal, setGoal] = useState("");
@@ -86,6 +86,7 @@ export function ImpactLabForm({ initialZipcode }: { initialZipcode: string }) {
           area_size_m2: parsed.data.area_size_m2,
           season: parsed.data.season,
           zipcode: parsed.data.zipcode,
+          language,
         }),
       });
       const body = (await res.json()) as
