@@ -3,6 +3,9 @@ import { z } from "zod";
 import OpenAI from "openai";
 import { UZBEKISTAN_ZIPCODES } from "@/lib/constants/zipcodes";
 
+const GROQ_BASE_URL = "https://api.groq.com/openai/v1";
+const GROQ_MODEL = "llama-3.1-8b-instant";
+
 const inputSchema = z.object({
   title: z.string().min(1).max(120),
   goal_description: z.string().min(1).max(2000),
@@ -26,8 +29,8 @@ function buildFallbackPlan(input: z.infer<typeof inputSchema>) {
     steps: [
       `Measure and map the ${input.area_size_m2} m² area, then split it into priority zones.`,
       `Prepare the top soil and remove debris before ${input.season} implementation starts.`,
-      `Plant or install the first pilot section and monitor weekly progress.`,
-      `Expand to remaining zones using lessons from the pilot section.`,
+      "Plant or install the first pilot section and monitor weekly progress.",
+      "Expand to remaining zones using lessons from the pilot section.",
     ],
     materials: [
       "Work gloves",
@@ -48,6 +51,7 @@ export async function POST(req: Request) {
   try {
     const json = await req.json();
     const parsed = inputSchema.safeParse(json);
+
     if (!parsed.success) {
       return NextResponse.json(
         { error: "Invalid input", details: parsed.error.flatten() },
@@ -55,17 +59,15 @@ export async function POST(req: Request) {
       );
     }
 
-    const groqKey = process.env.GROQ_API_KEY;
-    const openaiKey = process.env.OPENAI_API_KEY;
-    const apiKey = groqKey ?? openaiKey;
+    const groqApiKey = process.env.GROQ_API_KEY;
 
-    if (!apiKey) {
+    if (!groqApiKey) {
       return NextResponse.json({ plan: buildFallbackPlan(parsed.data) });
     }
 
     const client = new OpenAI({
-      apiKey,
-      baseURL: groqKey ? "https://api.groq.com/openai/v1" : undefined,
+      apiKey: groqApiKey,
+      baseURL: GROQ_BASE_URL,
     });
 
     const prompt = {
@@ -97,20 +99,20 @@ export async function POST(req: Request) {
     };
 
     const completion = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+      model: GROQ_MODEL,
       temperature: 0.4,
       response_format: { type: "json_object" },
       messages: [
         {
           role: "system",
-          content:
-            "You are a helpful assistant that outputs valid JSON only. No markdown.",
+          content: "You are a helpful assistant that outputs valid JSON only. No markdown.",
         },
         prompt,
       ],
     });
 
     const content = completion.choices[0]?.message?.content ?? "";
+
     let planJson: unknown;
     try {
       planJson = JSON.parse(content);
@@ -122,6 +124,7 @@ export async function POST(req: Request) {
     }
 
     const validated = planSchema.safeParse(planJson);
+
     if (!validated.success) {
       return NextResponse.json(
         { error: "Plan JSON failed validation", raw: planJson },
