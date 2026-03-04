@@ -31,6 +31,21 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 - Run `npm run dev`.
 - Visit `/env-check` to verify that variables are wired correctly without exposing secrets.
 
+
+## Build notes (CI / offline environments)
+
+- The app no longer requires downloading Google Fonts at build time (uses local/system font stack), so font-network failures should not block build.
+- `npm run build` still requires Supabase env vars to be present because auth pages initialize Supabase clients:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- For local CI checks you can provide placeholder values, for example:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://example.supabase.co \
+NEXT_PUBLIC_SUPABASE_ANON_KEY=demo-key \
+npm run build
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
