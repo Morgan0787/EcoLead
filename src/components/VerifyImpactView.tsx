@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -154,13 +155,13 @@ export function VerifyImpactView({ plans }: { plans: PlanLite[] }) {
               <div className="text-xs font-medium text-black/60 dark:text-white/60">
                 {t("verify.before")}
               </div>
-              <img className="mt-2 w-full rounded-xl border border-black/10 dark:border-white/10" src={beforeUrl} alt="Before" />
+              <Image className="mt-2 w-full rounded-xl border border-black/10 dark:border-white/10" src={beforeUrl} alt="Before" width={800} height={600} unoptimized />
             </div>
             <div>
               <div className="text-xs font-medium text-black/60 dark:text-white/60">
                 {t("verify.after")}
               </div>
-              <img className="mt-2 w-full rounded-xl border border-black/10 dark:border-white/10" src={afterUrl} alt="After" />
+              <Image className="mt-2 w-full rounded-xl border border-black/10 dark:border-white/10" src={afterUrl} alt="After" width={800} height={600} unoptimized />
             </div>
           </CardContent>
         </Card>

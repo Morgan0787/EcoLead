@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import OpenAI from "openai";
 import { UZBEKISTAN_ZIPCODES } from "@/lib/constants/zipcodes";
+import { languageLabel, resolveGroqModel } from "@/lib/impactlab";
 
 const inputSchema = z.object({
   title: z.string().min(1).max(120),
@@ -9,6 +10,7 @@ const inputSchema = z.object({
   area_size_m2: z.number().min(1).max(1_000_000),
   season: z.enum(["spring", "summer", "autumn", "winter"]),
   zipcode: z.enum(UZBEKISTAN_ZIPCODES),
+  language: z.enum(["en", "ru", "uz"]).default("en"),
 });
 
 const planSchema = z.object({
@@ -21,13 +23,61 @@ const planSchema = z.object({
 });
 
 function buildFallbackPlan(input: z.infer<typeof inputSchema>) {
+  if (input.language === "ru") {
+    return {
+      summary: `Стартовый экоплан для проекта «${input.title}»`,
+      steps: [
+        `Измерьте участок ${input.area_size_m2} м² и разделите его на приоритетные зоны.`,
+        `Подготовьте верхний слой почвы и уберите мусор до начала работ в сезон ${input.season}.`,
+        "Запустите пилотную зону и отслеживайте прогресс каждую неделю.",
+        "Масштабируйте подход на остальные зоны с учетом результатов пилота.",
+      ],
+      materials: [
+        "Рабочие перчатки",
+        "Ручные инструменты (лопата/грабли)",
+        "Оборудование для полива",
+        "Компост или органический улучшитель почвы",
+      ],
+      timeline_weeks: 6,
+      risks: [
+        "Нерегулярный график ухода",
+        "Переувлажнение или недостаточный полив на старте",
+      ],
+      local_notes: `Резервный план создан без внешнего ИИ и адаптирован под индекс ${input.zipcode} для сезона ${input.season}.`,
+    };
+  }
+
+  if (input.language === "uz") {
+    return {
+      summary: `${input.title} loyihasi uchun boshlang'ich ekologik reja`,
+      steps: [
+        `${input.area_size_m2} m² maydonni o'lchab, uni ustuvor zonalarga ajrating.`,
+        `${input.season} mavsumidagi ishlar boshlanishidan oldin tuproqning yuqori qatlamini tayyorlang va chiqindilarni olib tashlang.`,
+        "Pilot zonani ishga tushiring va har hafta natijalarni kuzatib boring.",
+        "Pilot tajribasi asosida qolgan zonalarga bosqichma-bosqich kengaytiring.",
+      ],
+      materials: [
+        "Ishchi qo'lqoplar",
+        "Qo'l asboblari (belkurak/tirmoq)",
+        "Sug'orish jihozlari",
+        "Kompost yoki organik tuproq yaxshilagichi",
+      ],
+      timeline_weeks: 6,
+      risks: [
+        "Parvarish jadvaliga doimiy amal qilinmasligi",
+        "Boshlanish bosqichida ortiqcha yoki kam sug'orish",
+      ],
+      local_notes: `Ushbu zaxira reja tashqi IIsiz tuzildi va ${input.season} mavsumi uchun ${input.zipcode} indeksiga moslashtirildi.`,
+    };
+  }
+
   return {
     summary: `Starter eco plan for ${input.title}`,
     steps: [
       `Measure and map the ${input.area_size_m2} m² area, then split it into priority zones.`,
       `Prepare the top soil and remove debris before ${input.season} implementation starts.`,
-      `Plant or install the first pilot section and monitor weekly progress.`,
-      `Expand to remaining zones using lessons from the pilot section.`,
+      "Plant or install the first pilot section and monitor weekly progress.",
+      "Expand to remaining zones using lessons from the pilot section.",
     ],
     materials: [
       "Work gloves",
@@ -55,9 +105,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const groqKey = process.env.GROQ_API_KEY;
-    const openaiKey = process.env.OPENAI_API_KEY;
-    const apiKey = groqKey ?? openaiKey;
+    const apiKey = process.env.GROQ_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json({ plan: buildFallbackPlan(parsed.data) });
@@ -65,7 +113,7 @@ export async function POST(req: Request) {
 
     const client = new OpenAI({
       apiKey,
-      baseURL: groqKey ? "https://api.groq.com/openai/v1" : undefined,
+      baseURL: "https://api.groq.com/openai/v1",
     });
 
     const prompt = {
@@ -90,6 +138,7 @@ export async function POST(req: Request) {
         "- Materials should be concrete items.",
         "- Timeline in weeks (1–26).",
         "- Local notes should mention the provided zipcode and season, but do NOT claim real climate/geo facts.",
+        `- All textual fields MUST be written in ${languageLabel(parsed.data.language)}.`,
         "",
         "Input:",
         JSON.stringify(parsed.data, null, 2),
@@ -97,7 +146,7 @@ export async function POST(req: Request) {
     };
 
     const completion = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+      model: resolveGroqModel(),
       temperature: 0.4,
       response_format: { type: "json_object" },
       messages: [
