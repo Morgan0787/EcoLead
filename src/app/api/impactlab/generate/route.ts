@@ -55,9 +55,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const groqKey = process.env.GROQ_API_KEY;
-    const openaiKey = process.env.OPENAI_API_KEY;
-    const apiKey = groqKey ?? openaiKey;
+    const apiKey = process.env.GROQ_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json({ plan: buildFallbackPlan(parsed.data) });
@@ -65,7 +63,7 @@ export async function POST(req: Request) {
 
     const client = new OpenAI({
       apiKey,
-      baseURL: groqKey ? "https://api.groq.com/openai/v1" : undefined,
+      baseURL: "https://api.groq.com/openai/v1",
     });
 
     const prompt = {
