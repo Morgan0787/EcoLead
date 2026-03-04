@@ -1,6 +1,6 @@
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const openaiModel = process.env.OPENAI_MODEL ?? "gpt-4o-mini";
+const groqModel = process.env.GROQ_MODEL ?? process.env.OPENAI_MODEL ?? "llama-3.1-8b-instant";
 const groqApiKey = process.env.GROQ_API_KEY;
 
 function mask(value: string | undefined | null, visible: number): string {
@@ -30,9 +30,9 @@ export default function EnvCheckPage() {
             </dd>
           </div>
           <div className="flex items-center justify-between gap-4">
-            <dt className="font-medium">OPENAI_MODEL</dt>
+            <dt className="font-medium">GROQ_MODEL</dt>
             <dd className="text-right text-black/80 dark:text-white/80">
-              {openaiModel || "Missing"}
+              {groqModel || "Missing"}
             </dd>
           </div>
           <div className="flex items-center justify-between gap-4">

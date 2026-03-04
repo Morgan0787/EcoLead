@@ -11,6 +11,8 @@ const inputSchema = z.object({
   zipcode: z.enum(UZBEKISTAN_ZIPCODES),
 });
 
+const DEFAULT_GROQ_MODEL = "llama-3.1-8b-instant";
+
 const planSchema = z.object({
   summary: z.string(),
   steps: z.array(z.string()).min(3).max(12),
@@ -44,6 +46,16 @@ function buildFallbackPlan(input: z.infer<typeof inputSchema>) {
   };
 }
 
+function resolveGroqModel(): string {
+  const configuredModel = process.env.GROQ_MODEL ?? process.env.OPENAI_MODEL;
+
+  if (!configuredModel || configuredModel === "gpt-4o-mini") {
+    return DEFAULT_GROQ_MODEL;
+  }
+
+  return configuredModel;
+}
+
 export async function POST(req: Request) {
   try {
     const json = await req.json();
@@ -55,9 +67,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const groqKey = process.env.GROQ_API_KEY;
-    const openaiKey = process.env.OPENAI_API_KEY;
-    const apiKey = groqKey ?? openaiKey;
+    const apiKey = process.env.GROQ_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json({ plan: buildFallbackPlan(parsed.data) });
@@ -65,7 +75,7 @@ export async function POST(req: Request) {
 
     const client = new OpenAI({
       apiKey,
-      baseURL: groqKey ? "https://api.groq.com/openai/v1" : undefined,
+      baseURL: "https://api.groq.com/openai/v1",
     });
 
     const prompt = {
@@ -97,7 +107,7 @@ export async function POST(req: Request) {
     };
 
     const completion = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+      model: resolveGroqModel(),
       temperature: 0.4,
       response_format: { type: "json_object" },
       messages: [
