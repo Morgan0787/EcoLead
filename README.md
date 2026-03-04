@@ -27,7 +27,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
   - `NEXT_PUBLIC_SUPABASE_URL`
   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
   - `GROQ_API_KEY`
-  - `OPENAI_MODEL` (default `gpt-4o-mini` is fine for local)
+  - `GROQ_MODEL` (optional, default: `llama-3.1-8b-instant`)
 - Run `npm run dev`.
 - Visit `/env-check` to verify that variables are wired correctly without exposing secrets.
 

@@ -11,6 +11,8 @@ const inputSchema = z.object({
   zipcode: z.enum(UZBEKISTAN_ZIPCODES),
 });
 
+const DEFAULT_GROQ_MODEL = "llama-3.1-8b-instant";
+
 const planSchema = z.object({
   summary: z.string(),
   steps: z.array(z.string()).min(3).max(12),
@@ -42,6 +44,16 @@ function buildFallbackPlan(input: z.infer<typeof inputSchema>) {
     ],
     local_notes: `This fallback plan is generated without external AI and tailored to zipcode ${input.zipcode} for ${input.season}.`,
   };
+}
+
+function resolveGroqModel(): string {
+  const configuredModel = process.env.GROQ_MODEL ?? process.env.OPENAI_MODEL;
+
+  if (!configuredModel || configuredModel === "gpt-4o-mini") {
+    return DEFAULT_GROQ_MODEL;
+  }
+
+  return configuredModel;
 }
 
 export async function POST(req: Request) {
@@ -95,7 +107,7 @@ export async function POST(req: Request) {
     };
 
     const completion = await client.chat.completions.create({
-      model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+      model: resolveGroqModel(),
       temperature: 0.4,
       response_format: { type: "json_object" },
       messages: [
